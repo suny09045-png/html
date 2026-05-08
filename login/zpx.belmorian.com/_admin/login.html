@@ -2,43 +2,36 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title></title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>我的网站 - 控制台登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
 
     <script src="js/common/jquery.min.js"></script>
     <script src="../public/configuration.js"></script>
-
     <script src="js/jquery-core.min.js"></script>
     <script src="js/fai.min.js"></script>
-    <link href="layui/css/layui.css" rel="stylesheet" />
+    <link href="layui/css/layui.css" rel="stylesheet">
     <script src="layui/layui.all.js"></script>
     <script src="js/common/jquery.cookie.js"></script>
- 
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        /* 浅蓝渐变背景 从右→左 */
+
         body {
             min-height: 100vh !important;
             height: auto !important;
-            background: linear-gradient(to right, #f0faff 0%, #c0e8ff 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
-        /* 隐藏旧元素 */
-        #particles-js,
-        .loadingbar3,
-        .qr-code,
-        .icon {
-            display: none !important;
-        }
-        /* 主容器 */
+
         .main-body {
             width: 100%;
             display: flex;
@@ -46,117 +39,167 @@
             justify-content: center;
             padding: 20px;
         }
-        /* 登录卡片 */
+
         .new-login {
             width: 100%;
-            max-width: 440px;
-            background: #fff;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
-            padding: 50px 45px;
-            border: 1px solid rgba(255,255,255,0.6);
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 48px 40px;
+            backdrop-filter: blur(10px);
         }
-        /* 标题 */
+
         .new-login .top {
-            font-size: 26px;
-            font-weight: 600;
-            color: #2c3e50;
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
             text-align: center;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
+            margin-bottom: 36px;
+            letter-spacing: 2px;
         }
-        /* 输入框 */
+
+        .new-login .top .site-name {
+            color: #667eea;
+        }
+
         .new-login .item {
             position: relative;
-            margin-bottom: 26px;
+            margin-bottom: 24px;
         }
+
+        .new-login .item .label {
+            display: block;
+            font-size: 14px;
+            color: #4a5568;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
         .new-login .item input {
             width: 100%;
-            height: 50px;
-            border: 1px solid #eaecef;
+            height: 48px;
+            border: 2px solid #e2e8f0;
             border-radius: 10px;
-            padding: 0 18px;
+            padding: 0 16px;
             font-size: 15px;
             outline: none;
-            transition: all 0.25s ease;
-            background: #fafbfc;
-        }
-        .new-login .item input:focus {
-            border-color: #409eff;
+            transition: all 0.3s ease;
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(64, 158, 255, 0.1);
         }
-        /* 密码切换 */
-        .hide { display: none !important; }
+
+        .new-login .item input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
         .pwd-toggle {
             position: absolute;
             right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 14px;
             cursor: pointer;
-            color: #94a3b8;
-            font-size: 17px;
+            color: #a0aec0;
+            font-size: 18px;
             user-select: none;
+            transition: color 0.2s;
         }
-        /* 登录按钮 */
+
+        .pwd-toggle:hover {
+            color: #667eea;
+        }
+
         #loginBtn.deal {
             width: 100%;
             height: 50px;
-            background: #409eff;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             border: none;
             border-radius: 10px;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
             margin-top: 10px;
             text-align: center;
             line-height: 50px;
+            letter-spacing: 4px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-        #loginBtn.deal:hover { background: #338eef; }
-        #loginBtn.deal:active { transform: scale(0.98); }
+
+        #loginBtn.deal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        #loginBtn.deal:active {
+            transform: translateY(0);
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .test-hint {
+            background: #f7fafc;
+            border: 1px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .test-hint strong {
+            color: #667eea;
+        }
     </style>
 </head>
 
-<body id="body" style="height: 684px">
-    <div id="particles-js"></div>
-    <div class="loadingbar3"></div>
-
+<body>
     <div class="main-body">
         <div class="new-login">
             <div class="top">
-                <script>document.write(global_title)</script>控制台
+                <span class="site-name" id="siteTitle">我的网站</span> 控制台
             </div>
+            
+            <div class="test-hint">
+                测试账号: <strong>admin</strong> &nbsp;|&nbsp; 密码: <strong>123456</strong>
+            </div>
+
             <div class="bottom">
                 <div class="center">
                     <div class="item">
-                        <span class="icon icon-2"></span>
+                        <span class="label">用户名</span>
                         <input type="text" id="uname" placeholder="请输入登录帐号" maxlength="24">
                     </div>
                     <div class="item">
-                        <span class="icon icon-3"></span>
+                        <span class="label">密码</span>
                         <input type="password" id="lpwd" placeholder="请输入密码" maxlength="20">
-                        <input type="text" id="loginPwdText" placeholder="请输入密码" maxlength="20" class="hide">
-                        <span class="icon icon-4"></span>
-                        <div class="pwd-toggle" onclick="togglePwd()">👁️</div>
+                        <input type="text" id="loginPwdText" placeholder="请输入密码" maxlength="20" class="hide" style="display:none;">
+                        <span class="pwd-toggle" onclick="togglePwd()" title="显示/隐藏密码">👁️</span>
                     </div>
 
-                    <div id="loginBtn" class="deal" onclick="sub()">立即登录</div>
+                    <div id="loginBtn" class="deal" onclick="sub()">登 录</div>
                 </div>
             </div>
+
+            <div class="footer-info">
+                <script>document.write(new Date().getFullYear())</script> 我的网站 · All Rights Reserved
+            </div>
         </div>
-        <div class="qr-code"></div>
     </div>
 
-    <script src="jsmethod/user_login.js?v=202206281"></script>
-	<script src="https://notice.flashgo.cc/js/common.js?notice=false" defer></script>
-
+    <script src="jsmethod/user_login.js"></script>
     <script>
-        // 密码显示/隐藏
+        document.getElementById('siteTitle').textContent = global_title || '我的网站';
+
         function togglePwd() {
-            let pwd = document.getElementById('lpwd');
-            let text = document.getElementById('loginPwdText');
+            var pwd = document.getElementById('lpwd');
+            var text = document.getElementById('loginPwdText');
             if (pwd.classList.contains('hide')) {
                 pwd.classList.remove('hide');
                 text.classList.add('hide');
@@ -166,11 +209,10 @@
                 text.value = pwd.value;
             }
         }
-        // 回车登录
-        document.addEventListener('keydown', function (e) {
+
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') sub();
         });
     </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"7dd85b7767cf4d71b42aa30cbf7e57c5","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
